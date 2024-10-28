@@ -8,7 +8,7 @@ app.use(express.json());
 require('dotenv').config();
 
 // Assuming GoogleGenerativeAI is properly configured and instantiated
-const genAI = new GoogleGenerativeAI('Gemini API key');
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEN_AI_KEY);
 
 app.post('/gemini', async (req, res) => {
   try {
@@ -17,7 +17,7 @@ app.post('/gemini', async (req, res) => {
 
     // Ensure chat history is in the expected format
     const chatHistory = req.body.history.map(item => ({
-      parts: [item.message] // Assuming each item in history contains a 'message' property
+      parts: [item.message]
     }));
 
     const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
